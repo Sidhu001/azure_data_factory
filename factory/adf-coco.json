@@ -1,0 +1,9 @@
+{
+	"name": "adf-coco",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "764370a8-d206-4f93-b394-010df58b161c",
+		"tenantId": "8b1b40ba-f003-4b92-b68c-89ad2df2eb35"
+	}
+}
