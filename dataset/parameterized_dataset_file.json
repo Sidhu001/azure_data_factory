@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText2",
+	"name": "parameterized_dataset_file",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "linkedServiceSource",

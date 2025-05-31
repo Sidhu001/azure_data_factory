@@ -122,7 +122,7 @@
 										],
 										"outputs": [
 											{
-												"referenceName": "DelimitedText2",
+												"referenceName": "parameterized_dataset_file",
 												"type": "DatasetReference",
 												"parameters": {
 													"p_file_name": {
