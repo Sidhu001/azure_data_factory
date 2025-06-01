@@ -12,7 +12,15 @@
 					"name": "sourceCSV"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dataFlowSink",
+						"type": "DatasetReference"
+					},
+					"name": "visaUserHighestAmountSpent"
+				}
+			],
 			"transformations": [
 				{
 					"name": "selectCols"
@@ -27,6 +35,9 @@
 				},
 				{
 					"name": "ReplaceNulls"
+				},
+				{
+					"name": "aggregate"
 				}
 			],
 			"scriptLines": [
@@ -61,7 +72,16 @@
 				"filterId split(payment=='visa',",
 				"     payment=='mastercard',",
 				"     disjoint: false) ~> cardTypeSplit@(visa, mastercard, amex)",
-				"cardTypeSplit@amex derive(payment = coalesce(payment, 'NA')) ~> ReplaceNulls"
+				"cardTypeSplit@amex derive(payment = coalesce(payment, 'NA')) ~> ReplaceNulls",
+				"cardTypeSplit@visa aggregate(groupBy(customer_id),",
+				"     highest_amount_spent = max(cost)) ~> aggregate",
+				"aggregate sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> visaUserHighestAmountSpent"
 			]
 		}
 	}
