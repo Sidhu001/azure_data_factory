@@ -24,6 +24,9 @@
 				{
 					"name": "cardTypeSplit",
 					"description": "Conditionally distributing the data in payment groups, based on payment card"
+				},
+				{
+					"name": "ReplaceNulls"
 				}
 			],
 			"scriptLines": [
@@ -57,7 +60,8 @@
 				"selectCols filter(customer_id != 12) ~> filterId",
 				"filterId split(payment=='visa',",
 				"     payment=='mastercard',",
-				"     disjoint: false) ~> cardTypeSplit@(visa, mastercard, amex)"
+				"     disjoint: false) ~> cardTypeSplit@(visa, mastercard, amex)",
+				"cardTypeSplit@amex derive(payment = coalesce(payment, 'NA')) ~> ReplaceNulls"
 			]
 		}
 	}
