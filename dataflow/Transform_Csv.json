@@ -20,6 +20,9 @@
 				{
 					"name": "filterId",
 					"description": "filtering records using expressions on customer_id "
+				},
+				{
+					"name": "cardTypeSplit"
 				}
 			],
 			"scriptLines": [
@@ -50,7 +53,10 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> selectCols",
-				"selectCols filter(customer_id != 12) ~> filterId"
+				"selectCols filter(customer_id != 12) ~> filterId",
+				"filterId split(payment=='visa',",
+				"     payment=='mastercard',",
+				"     disjoint: false) ~> cardTypeSplit@(visa, mastercard, otherThanVisa)"
 			]
 		}
 	}
