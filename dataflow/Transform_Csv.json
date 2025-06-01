@@ -22,7 +22,8 @@
 					"description": "filtering records using expressions on customer_id "
 				},
 				{
-					"name": "cardTypeSplit"
+					"name": "cardTypeSplit",
+					"description": "Conditionally distributing the data in payment groups, based on payment card"
 				}
 			],
 			"scriptLines": [
@@ -56,7 +57,7 @@
 				"selectCols filter(customer_id != 12) ~> filterId",
 				"filterId split(payment=='visa',",
 				"     payment=='mastercard',",
-				"     disjoint: false) ~> cardTypeSplit@(visa, mastercard, otherThanVisa)"
+				"     disjoint: false) ~> cardTypeSplit@(visa, mastercard, amex)"
 			]
 		}
 	}
